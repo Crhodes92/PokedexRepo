@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- this link is for mat icons -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
   <script src="assets/javascript/logic.js"></script>
 </head>
 
@@ -29,7 +31,7 @@
         </div>
       </form>
       <!-- matRef-../navbar/search bar -->
-      
+
     </div>
   </nav>
   <!-- matRef-css/grid(https://materializecss.com/grid.html) -->
@@ -38,11 +40,11 @@
 
       <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
       <div class="collection with-header col m4">
-        <ul>
+        <ul id="pokemonList">
           <li class="collection-header">
-            <h4>list of pokemon</h4>
+            <h4>Pokemon</h4>
           </li>
-          <li class="collection-item">bulbasaur</li>
+          <!--Pokemon get inserted here-->
         </ul>
       </div>
 
