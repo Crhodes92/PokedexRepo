@@ -2,7 +2,8 @@
   width: 98%;
 }
 
-body {
+/* sticky footer styling */
+/* body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -10,10 +11,26 @@ body {
 
 main {
   flex: 1 0 auto;
-}
+} */
+/* sticky footer styling */
 
 .collection-item:hover {
-  background-color: crimson;
+  background-color: rgb(204, 0, 0);
   color: white;
   border-radius: 15px;
 }
+
+nav {
+  background-color: rgb(255, 0, 0)
+}
+
+nav .brand-logo {
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+/* .page-footer {
+  background-color: rgb(59, 76, 202);
+
+} */
+
