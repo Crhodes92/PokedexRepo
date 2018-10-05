@@ -11,3 +11,9 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+.collection-item:hover {
+  background-color: crimson;
+  color: white;
+  border-radius: 15px;
+}
