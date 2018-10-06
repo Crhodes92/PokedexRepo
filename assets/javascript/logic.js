@@ -1,4 +1,4 @@
-
+var buttonArr = ["Training", "Breeding", "Moves-List"]
 //ajax call
 var queryURL = "https://pokeapi.co/api/v2/pokemon/"
 var searched;
@@ -12,7 +12,7 @@ function emptyPrev () {
     $("#data-type").empty();
     $("#data-abilities").empty();
     $("#poke-name").empty();
-    // $("#buttonPlacement").empty();
+    $("#buttonPlacement").empty();
 }
 
 $.ajax({
@@ -41,7 +41,16 @@ $(document).on("click", ".collection-item", function () {
         populateSprite(indQueryURL);
     flavorTextURL = "https://pokeapi.co/api/v2/pokemon-species/" + searched + "/";
         populateDescription (flavorTextURL);
+    populateButtons(buttonArr, "waves-effect waves-light btn-small MiddleColButtons", "#buttonPlacement");
+
 })
+
+$(document).on("click", "#Moves-List", function () {
+    // searched = $(".collection-item").attr("data-name")
+    // indQueryURL = queryURL + searched + "/";
+    $("#rightCol").empty();
+    moveListButton(indQueryURL);
+});
 
 function populateSprite(indQueryURL) {
     $.ajax({
@@ -79,3 +88,35 @@ function populateDescription (flavorTextURL) {
     })
 }
 
+function populateButtons(buttonArr, classToAdd, areaToAdd) {
+    $(areaToAdd).empty
+    for (i=0; i<buttonArr.length; i++) {
+        var button = $("<a>")
+        button.addClass(classToAdd);
+        button.text(buttonArr[i]);
+        button.attr("id", buttonArr[i])
+        button.attr("src", "#")
+        button.attr("data-name", )
+        $(areaToAdd).append(button);
+        $(button).after(" ") 
+    }
+}
+
+function moveListButton(indQueryURL) {
+    $.ajax({
+        url: indQueryURL,
+        method: "GET",
+    }).then(function (response) {
+        console.log(indQueryURL);
+        console.log(response);
+        var moveListUl = $("<ul>")
+        for (i=0; i<response.moves.length; i++) {
+            var moves = $("<li>")
+            moves.text(response.moves[i].move.name);
+            moves.addClass("moves")
+            moveListUl.append(moves)
+            $("#rightCol").append(moveListUl)
+        }
+        
+
+})}
