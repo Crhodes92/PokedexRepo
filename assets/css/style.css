@@ -17,3 +17,8 @@ main {
   color: white;
   border-radius: 15px;
 }
+
+#pokemonList {
+  height: 400px;
+  overflow: auto;  
+}
