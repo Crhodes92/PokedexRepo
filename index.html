@@ -43,7 +43,6 @@
         <ul id="pokemonList">
           <li class="collection-header">
             <h5><strong>Pokemon</strong></h5>
-            <hr>
           </li>
           <!--Pokemon get inserted here-->
         </ul>
@@ -52,8 +51,7 @@
       <div class="col m4 center">
         <div class="row">
           <div class="col m12">
-            <h5><strong>PokeBio</strong></h5>
-            <hr>
+            <h5 id ="poke-name"></h5>
             <br>
             <br>
               <div id ="pic-pop">
@@ -64,15 +62,50 @@
 
         <div class="row">
           <div class="col m12">
-            move list
-            <br>
-            <br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper porttitor odio. Vivamus
-            condimentum cursus imperdiet. Vestibulum ultricies libero ac mattis malesuada. Aenean sed nisl non est
-            tempus semper. Maecenas aliquam fermentum ligula non volutpat. Donec sapien ex, aliquet sed est ut,
-            bibendum consequat arcu. Donec pulvinar eros eget nunc commodo consectetur. Etiam quis sollicitudin diam.
-            Duis risus sem, laoreet a imperdiet eu, efficitur id mauris. Proin nec tempor odio, id egestas dolor. Nunc
-            finibus eget metus sit amet condimentum. Nulla sed hendrerit dui, eu feugiat est.
+            <div id = "poke-descriptions"></div>
+
+            <!-- put css around to board the tables -->
+            <div id = "poke-stats"> 
+            
+              <br>
+
+              <table class = "centered">
+                <thead>
+                  <tr>
+
+                  </tr>
+                </thead>
+        
+                <tbody>
+ 
+                  <tr id = "data-type">
+                    <strong>Type</strong>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <br>
+
+              <table class = "centered">
+                  <thead>
+                    <tr>
+                    </tr>
+                  </thead>
+          
+                  <tbody>
+  
+                    <tr id = "data-abilities">
+                        <strong>Abilities</strong>
+                    </tr>
+  
+                  </tbody>
+                </table>
+
+              <br>
+
+            </div>
+
           </div>
         </div>
       </div>
