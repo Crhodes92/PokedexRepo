@@ -2,6 +2,10 @@
   width: 98%;
 }
 
+nav {
+  background-color: crimson;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -21,4 +25,14 @@ main {
 #pokemonList {
   height: 400px;
   overflow: auto;  
+}
+
+.MiddleColButtons {
+  background-color: crimson;
+  color: white;
+  border-radius: 15px;
+}
+
+.MiddleColButtons:hover {
+  background-color: rgb(158, 14, 43); 
 }
