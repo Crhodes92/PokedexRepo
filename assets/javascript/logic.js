@@ -23,16 +23,16 @@ $.ajax({
     })
 
 $(document).on("click", ".collection-item", function () {
-    $("#bio-pop").empty();
+    $("#pic-pop").empty();
     searched = $(this).attr("data-name")
     console.log(searched)
     indQueryURL = queryURL + searched + "/";
-    populateBio(indQueryURL);
+    populateSprite(indQueryURL);
 
 
 })
 
-function populateBio(indQueryURL) {
+function populateSprite(indQueryURL) {
     $.ajax({
         url: indQueryURL,
         method: "GET",
@@ -40,7 +40,7 @@ function populateBio(indQueryURL) {
         console.log(response)
         var imageCreate = $("<img>");
         imageCreate.attr("src", response.sprites.front_default);
-        $("#bio-pop").append(imageCreate);
+        $("#pic-pop").append(imageCreate);
 
     })
 }
