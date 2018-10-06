@@ -33,23 +33,30 @@
         </form>
         <!-- matRef-../navbar/search bar -->
 
+      <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
+      <div class="collection with-header col m4">
+        <ul id="pokemonList">
+          <li class="collection-header">
+            <h5><strong>Pokemon</strong></h5>
+            <hr>
+          </li>
+          <!--Pokemon get inserted here-->
+        </ul>
       </div>
     </nav>
   </header>
 
-  <main>
-    <!-- matRef-css/grid(https://materializecss.com/grid.html) -->
-    <div class="container">
-      <div class="row">
-
-        <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
-        <div class="collection with-header col m4">
-          <ul style="height: 400px; overflow: auto;" id="pokemonList">
-            <li class="collection-header">
-              <h4>Pokemon</h4>
-            </li>
-            <!--Pokemon get inserted here-->
-          </ul>
+      <div class="col m4 center">
+        <div class="row">
+          <div class="col m12">
+            <h5><strong>PokeBio</strong></h5>
+            <hr>
+            <br>
+            <br>
+              <div id ="pic-pop">
+                <!-- Pokemon image goes here-->
+              </div>
+          </div>
         </div>
 
         <div class="col m4 center">
@@ -84,9 +91,9 @@
           </div>
         </div>
 
-        <div class="col m4 center pokeImage">
-          pokemon image
-        </div>
+      <div class="col m4 center" id = "imagePlaceholder">
+        <!-- Pokemon image goes here-->
+      </div>
 
       </div>
     </div>

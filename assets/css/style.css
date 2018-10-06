@@ -20,17 +20,7 @@ main {
   border-radius: 15px;
 }
 
-nav {
-  background-color: rgb(255, 0, 0)
+#pokemonList {
+  height: 400px;
+  overflow: auto;  
 }
-
-nav .brand-logo {
-  padding-top: 5px;
-  padding-left: 10px;
-}
-
-/* .page-footer {
-  background-color: rgb(59, 76, 202);
-
-} */
-
