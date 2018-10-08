@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Gotta Git 'Em All</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- this link is for mat icons -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="assets/javascript/logic.js"></script>
 </head>
 
@@ -21,7 +21,8 @@
     <!-- matRef-components/navbar(https://materializecss.com/navbar.html) -->
     <nav>
       <div class="nav-wrapper">
-        <a class="left brand-logo"><img src="https://fontmeme.com/permalink/181005/8afe84c3a9c1474dac8b060e9b687e89.png" alt="pokemon-font" border="0"></a> <!-- navbar logo-->
+        <a class="left brand-logo"><img src="https://fontmeme.com/permalink/181005/8afe84c3a9c1474dac8b060e9b687e89.png"
+            alt="pokemon-font" border="0"></a> <!-- navbar logo-->
 
         <!-- matRef-../navbar/search bar -->
         <form>
@@ -31,9 +32,15 @@
             <i class="material-icons">close</i>
           </div>
         </form>
-        <!-- matRef-../navbar/search bar -->
+    </nav>
+  </header>
+  <!-- matRef-../navbar/search bar -->
 
-      <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
+  <main>
+  <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
+  <!-- main row for content-->
+    <div class="row">
+    <!-- 1st column containing pokemon list -->
       <div class="collection with-header col m4">
         <ul id="pokemonList">
           <li class="collection-header">
@@ -42,40 +49,40 @@
           <!--Pokemon get inserted here-->
         </ul>
       </div>
-    </nav>
-  </header>
+    <!-- end 1st column -->
 
+    <!-- 2nd column containing pokemon image/description/stats/etc -->
       <div class="col m4 center">
         <div class="row">
           <div class="col m12">
-            <h5 id ="poke-name"></h5>
+            <h5 id="poke-name"></h5>
             <br>
             <br>
-              <div id ="pic-pop">
-                <!-- Pokemon image goes here-->
-              </div>
+            <div id="pic-pop">
+              <!-- Pokemon image goes here-->
+            </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col m12">
-            <div id = "poke-descriptions"></div>
+            <div id="poke-descriptions"></div>
 
             <!-- put css around to board the tables -->
-            <div id = "poke-stats"> 
-            
+            <div id="poke-stats">
+
               <br>
 
-              <table class = "centered">
+              <table class="centered">
                 <thead>
                   <tr>
 
                   </tr>
                 </thead>
-        
+
                 <tbody>
- 
-                  <tr id = "data-type">
+
+                  <tr id="data-type">
                     <strong>Type</strong>
                   </tr>
 
@@ -84,35 +91,36 @@
 
               <br>
 
-              <table class = "centered">
-                  <thead>
-                    <tr>
-                    </tr>
-                  </thead>
-          
-                  <tbody>
-  
-                    <tr id = "data-abilities">
-                        <strong>Abilities</strong>
-                    </tr>
-  
-                  </tbody>
-                </table>
+              <table class="centered">
+                <thead>
+                  <tr>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <tr id="data-abilities">
+                    <strong>Abilities</strong>
+                  </tr>
+
+                </tbody>
+              </table>
 
               <br>
 
             </div>
 
-          </div>
-          <div id="buttonPlacement">
-            <!-- buttons go here-->
+            <div id="buttonPlacement">
+              <!-- buttons go here-->
+            </div>
           </div>
         </div>
       </div>
-      <div class="col m4 center" id = "rightCol">
-        <!-- Pokemon image goes here-->
-      </div>
+    <!-- end of 2nd column -->
 
+    <!-- 3rd column containing lists populated by 2nd column buttons -->
+      <div class="col m4 center" id="rightCol">
+        <!-- moves list goes here-->
       </div>
     </div>
   </main>

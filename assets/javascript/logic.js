@@ -116,6 +116,7 @@ function moveListButton(indQueryURL) {
             moves.addClass("moves")
             moveListUl.append(moves)
             $("#rightCol").append(moveListUl)
+            $(moves).css('textTransform', 'capitalize');
         }
         
 

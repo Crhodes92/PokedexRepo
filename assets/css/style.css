@@ -1,3 +1,7 @@
+* {
+  font-family: 'Press Start 2P', cursive;
+}
+
 .container {
   width: 98%;
 }
@@ -23,8 +27,8 @@ main {
   border-radius: 15px;
 }
 
-#pokemonList {
-  height: 400px;
+#pokemonList, #rightCol {
+  height: 450px;
   overflow: auto;  
 }
 
@@ -36,4 +40,22 @@ main {
 
 .MiddleColButtons:hover {
   background-color: rgb(158, 14, 43); 
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b4cca;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cc0000;
 }
