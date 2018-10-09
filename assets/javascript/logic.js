@@ -6,13 +6,14 @@ var indQueryURL;
 var flavorTextURL;
 
 
-function emptyPrev () {
+function emptyPrev() {
     $("#pic-pop").empty();
     $("#poke-descriptions").empty();
     $("#data-type").empty();
     $("#data-abilities").empty();
     $("#poke-name").empty();
     $("#buttonPlacement").empty();
+    $("#rightCol").empty();
 }
 
 $.ajax({
@@ -21,7 +22,7 @@ $.ajax({
 }).then(function (response) {
     console.log(queryURL);
     console.log(response);
-    for (i = 0; i < 150; i++) {
+    for (i = 0; i < 151; i++) {
         var pokemonLi = $("<li>")
         pokemonLi.addClass("collection-item")
         pokemonLi.attr("data-name", response.results[i].name)
@@ -35,19 +36,17 @@ $(document).on("click", ".collection-item", function () {
     emptyPrev();
     searched = $(this).attr("data-name")
     $("#poke-name").append("<strong>" + searched + "</strong>")
-        $("#poke-name").css('textTransform', 'capitalize');
+    $("#poke-name").css('textTransform', 'capitalize');
     console.log(searched)
     indQueryURL = queryURL + searched + "/";
-        populateSprite(indQueryURL);
+    populateSprite(indQueryURL);
     flavorTextURL = "https://pokeapi.co/api/v2/pokemon-species/" + searched + "/";
-        populateDescription (flavorTextURL);
+    populateDescription(flavorTextURL);
     populateButtons(buttonArr, "waves-effect waves-light btn-small MiddleColButtons", "#buttonPlacement");
 
 })
 
 $(document).on("click", "#Moves-List", function () {
-    // searched = $(".collection-item").attr("data-name")
-    // indQueryURL = queryURL + searched + "/";
     $("#rightCol").empty();
     moveListButton(indQueryURL);
 });
@@ -62,23 +61,23 @@ function populateSprite(indQueryURL) {
         imageCreate.attr("src", response.sprites.front_default);
         $("#pic-pop").append(imageCreate);
 
-       console.log(response.height);
-       console.log(response.weight);
+        console.log(response.height);
+        console.log(response.weight);
 
 
-       for (i=0; i < response.types.length; i++) {
+        for (i = 0; i < response.types.length; i++) {
             console.log(response.types[i].type.name);
             $("#data-type").append("<td>" + response.types[i].type.name + "</td>")
-       }
+        }
 
-       for (i=0; i < response.abilities.length; i++) {
+        for (i = 0; i < response.abilities.length; i++) {
             console.log(response.abilities[i].ability.name);
             $("#data-abilities").append("<td>" + response.abilities[i].ability.name + "</td>")
-       }
+        }
     })
 }
 
-function populateDescription (flavorTextURL) {
+function populateDescription(flavorTextURL) {
     $.ajax({
         url: flavorTextURL,
         method: "GET",
@@ -90,15 +89,15 @@ function populateDescription (flavorTextURL) {
 
 function populateButtons(buttonArr, classToAdd, areaToAdd) {
     $(areaToAdd).empty
-    for (i=0; i<buttonArr.length; i++) {
+    for (i = 0; i < buttonArr.length; i++) {
         var button = $("<a>")
         button.addClass(classToAdd);
         button.text(buttonArr[i]);
         button.attr("id", buttonArr[i])
         button.attr("src", "#")
-        button.attr("data-name", )
+        button.attr("data-name")
         $(areaToAdd).append(button);
-        $(button).after(" ") 
+        $(button).after(" ")
     }
 }
 
@@ -107,17 +106,25 @@ function moveListButton(indQueryURL) {
         url: indQueryURL,
         method: "GET",
     }).then(function (response) {
+
         console.log(indQueryURL);
         console.log(response);
-        var moveListUl = $("<ul>")
-        for (i=0; i<response.moves.length; i++) {
-            var moves = $("<li>")
-            moves.text(response.moves[i].move.name);
-            moves.addClass("moves")
-            moveListUl.append(moves)
-            $("#rightCol").append(moveListUl)
-            $(moves).css('textTransform', 'capitalize');
-        }
-        
 
-})}
+        var moveListUl = $("<ul>")
+        moveListUl.addClass("collection with-header");
+
+        var moveListTitle = $("<li>");
+        moveListTitle.addClass("collection-header")
+        moveListTitle.html("<strong>Move List</strong>")
+
+        $(moveListUl).append(moveListTitle);
+
+        for (i = 0; i < response.moves.length; i++) {
+            var moves = $("<li>");
+            moves.text(response.moves[i].move.name);
+            moves.addClass("collection-item");
+            moveListUl.append(moves);
+            $("#rightCol").append(moveListUl);
+        }
+    })
+}
