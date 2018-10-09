@@ -12,6 +12,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAN2geARSD-dzL6PJYPIAKAVKHoZHjgdjg",
+      authDomain: "pokedex-project.firebaseapp.com",
+      databaseURL: "https://pokedex-project.firebaseio.com",
+      projectId: "pokedex-project",
+      storageBucket: "pokedex-project.appspot.com",
+      messagingSenderId: "867995910313"
+    };
+    firebase.initializeApp(config);
+  </script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="assets/javascript/logic.js"></script>
 </head>
@@ -23,6 +37,46 @@
       <div class="nav-wrapper">
         <a class="left brand-logo"><img src="https://fontmeme.com/permalink/181005/8afe84c3a9c1474dac8b060e9b687e89.png"
             alt="pokemon-font" border="0"></a> <!-- navbar logo-->
+
+        <!-- Modal Trigger -->
+        <button data-target="modal1" class="right btn modal-trigger">Str/Weak Chart</button>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Strengths and Weaknesses</h4>
+            <p>
+              <!-- insert chart img-->
+            </p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        </div>
+
+        <!-- Modal Trigger -->
+        <a href="#modal1" class="right waves-effect waves-light btn modal-trigger">Sign-In</a>
+
+        <!-- Modal Structure -->
+        <div data-target="modal1" class="modal">
+          <div class="modal-content">
+            <div>
+              <h4>Sign-In</h4>
+              <input id="txtEmail" type="email" placeholder="Email">
+
+              <input id="txtPassword" type="password" placeholder="Password">
+
+              <button id="btnLogin" class="btn btn-action">Log In</button>
+
+              <button id="btnSignUp" class="btn btn-secondary">Sign Up</button>
+
+              <button id="btnLogout" class="btn btn-action hide">Log Out</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">Close</a>
+          </div>
+        </div>
 
         <!-- matRef-../navbar/search bar -->
         <form>
@@ -37,10 +91,10 @@
   <!-- matRef-../navbar/search bar -->
 
   <main>
-  <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
-  <!-- main row for content-->
+    <!-- matRef-components/collections/headers(https://materializecss.com/collections.html) -->
+    <!-- main row for content-->
     <div class="row">
-    <!-- 1st column containing pokemon list -->
+      <!-- 1st column containing pokemon list -->
       <div class="collection with-header col m4">
         <ul id="pokemonList">
           <li class="collection-header">
@@ -49,9 +103,9 @@
           <!--Pokemon get inserted here-->
         </ul>
       </div>
-    <!-- end 1st column -->
+      <!-- end 1st column -->
 
-    <!-- 2nd column containing pokemon image/description/stats/etc -->
+      <!-- 2nd column containing pokemon image/description/stats/etc -->
       <div class="col m4 center">
         <div class="row">
           <div class="col m12">
@@ -116,13 +170,13 @@
           </div>
         </div>
       </div>
-    <!-- end of 2nd column -->
-    
-      <div class="col m4 center" id = "rightCol">
+      <!-- end of 2nd column -->
+
+      <div class="col m4 center" id="rightCol">
         <!-- Right col data goes here, Moveslist, breeding info, EVs etc-->
       </div>
 
-    <!-- 3rd column containing lists populated by 2nd column buttons -->
+      <!-- 3rd column containing lists populated by 2nd column buttons -->
       <div class="col m4 center" id="rightCol">
         <!-- moves list goes here-->
       </div>
@@ -144,5 +198,11 @@
   </footer> -->
 
 </body>
+
+<!-- firebase app (required) -->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+<!-- firebase services -->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script> -->
 
 </html>

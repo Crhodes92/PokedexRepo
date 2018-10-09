@@ -10,6 +10,7 @@ nav {
   background-color: crimson;
 }
 
+/* sticky footer styling */
 body {
   display: flex;
   min-height: 100vh;
@@ -18,7 +19,7 @@ body {
 
 main {
   flex: 1 0 auto;
-} */
+}
 /* sticky footer styling */
 
 .collection-item:hover {
@@ -42,6 +43,9 @@ main {
   background-color: rgb(158, 14, 43); 
 }
 
+/* scrollbar styling
+_________________________________________________________ */
+
 ::-webkit-scrollbar {
   width: 15px;
 }
@@ -59,3 +63,5 @@ main {
 ::-webkit-scrollbar-thumb:hover {
   background: #cc0000;
 }
+/* ______________________________________________________ */
+
