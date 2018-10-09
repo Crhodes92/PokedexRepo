@@ -4,6 +4,7 @@ var queryURL = "https://pokeapi.co/api/v2/pokemon/"
 var searched;
 var indQueryURL;
 var flavorTextURL;
+var breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/";
 
 
 function emptyPrev() {
@@ -39,6 +40,7 @@ $(document).on("click", ".collection-item", function () {
     $("#poke-name").css('textTransform', 'capitalize');
     console.log(searched)
     indQueryURL = queryURL + searched + "/";
+    breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/"
     populateSprite(indQueryURL);
     flavorTextURL = "https://pokeapi.co/api/v2/pokemon-species/" + searched + "/";
     populateDescription(flavorTextURL);
@@ -50,6 +52,12 @@ $(document).on("click", "#Moves-List", function () {
     $("#rightCol").empty();
     moveListButton(indQueryURL);
 });
+
+$(document).on("click", "#Breeding", function(breedQueryURL){
+    $("#rightCol").empty();
+    breedingButton(breedQueryURL);
+
+})
 
 function populateSprite(indQueryURL) {
     $.ajax({
@@ -126,5 +134,32 @@ function moveListButton(indQueryURL) {
             moveListUl.append(moves);
             $("#rightCol").append(moveListUl);
         }
+    })
+}
+
+function breedingButton(){
+$.ajax({
+    url: breedQueryURL,
+    method: "GET",
+}).then(function (response) {
+    console.log(response); 
+    var breedTable = $("<table>");
+    var breedTableHead = $("<thead>").html("<strong>Breeding Information</strong>");
+    breedTable.append(breedTableHead);
+    breedTable.addClass("centered");
+    var breedRow1 = $("<tr>");
+    var genderRate = $("<td>").text(response.gender_rate);
+    var hatchCounter = $("<td>").text((response.hatch_counter)*255)
+    breedRow1.append(genderRate);
+    breedRow1.append(hatchCounter)
+    $(breedTable).append(breedRow1);
+    var breedRow2 = $("<tr>");
+    var growthRate = $("<td>").text(response.growth_rate.name);
+    //still needs egg groups
+    breedRow2.append(growthRate);
+    //need to append egg groups
+    $(breedTable).append(breedRow2);
+    $(rightCol).append(breedTable);
+
     })
 }
