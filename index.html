@@ -27,6 +27,7 @@
     firebase.initializeApp(config);
   </script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="assets/javascript/logic.js"></script>
 </head>
 
@@ -39,15 +40,17 @@
             alt="pokemon-font" border="0"></a> <!-- navbar logo-->
 
         <!-- Modal Trigger -->
-        <button data-target="modal1" class="right btn modal-trigger">Str/Weak Chart</button>
+        <button data-target="chartModal" class="right btn modal-trigger">Str/Weak Chart</button>
 
         <!-- Modal Structure -->
-        <div id="modal1" class="modal">
+        <div id="chartModal" class="modal">
           <div class="modal-content">
             <h4>Strengths and Weaknesses</h4>
-            <p>
-              <!-- insert chart img-->
-            </p>
+
+            <!-- insert chart img-->
+            <img id="chartImage" src="https://img.rankedboost.com/wp-content/uploads/2016/11/sun-and-moon-type-chart-4.jpg"
+              alt="Stength and weakness chart">
+
           </div>
           <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -55,10 +58,10 @@
         </div>
 
         <!-- Modal Trigger -->
-        <a href="#modal1" class="right waves-effect waves-light btn modal-trigger">Sign-In</a>
+        <a data-target="signInModal" class="right waves-effect waves-light btn modal-trigger">Sign-In</a>
 
         <!-- Modal Structure -->
-        <div data-target="modal1" class="modal">
+        <div id="signInModal" class="modal">
           <div class="modal-content">
             <div>
               <h4>Sign-In</h4>

@@ -137,7 +137,7 @@ function moveListButton(indQueryURL) {
 
 $(document).ready(function () {
     $('.modal').modal();
-    $('.trigger-modal').modal();
+    //$('.trigger-modal').modal();
 });
 
 // ____________________________________________________
