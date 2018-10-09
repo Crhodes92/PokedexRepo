@@ -1,4 +1,4 @@
-var buttonArr = ["Training", "Breeding", "Moves-List"]
+var buttonArr = ["Stats", "Breeding", "Moves-List", "Caught"]
 //ajax call
 var queryURL = "https://pokeapi.co/api/v2/pokemon/"
 var searched;
@@ -6,6 +6,8 @@ var indQueryURL;
 var flavorTextURL;
 var breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/";
 
+var isCaught = false;
+var totalCaught = 0;
 
 function emptyPrev() {
     $("#pic-pop").empty();
@@ -15,6 +17,8 @@ function emptyPrev() {
     $("#poke-name").empty();
     $("#buttonPlacement").empty();
     $("#rightCol").empty();
+    $("#data-weight").empty();
+    $("#data-height").empty();
 }
 
 $.ajax({
@@ -25,7 +29,7 @@ $.ajax({
     console.log(response);
     for (i = 0; i < 151; i++) {
         var pokemonLi = $("<li>")
-        pokemonLi.addClass("collection-item")
+        pokemonLi.addClass("collection-item pokemon-list")
         pokemonLi.attr("data-name", response.results[i].name)
         $(pokemonLi).text(response.results[i].name)
         $(pokemonLi).css('textTransform', 'capitalize');
@@ -33,7 +37,7 @@ $.ajax({
     }
 })
 
-$(document).on("click", ".collection-item", function () {
+$(document).on("click", ".pokemon-list", function () {
     emptyPrev();
     searched = $(this).attr("data-name")
     $("#poke-name").append("<strong>" + searched + "</strong>")
@@ -71,6 +75,9 @@ function populateSprite(indQueryURL) {
 
         console.log(response.height);
         console.log(response.weight);
+
+        $("#data-height").append("<td>" + response.height + "</td>");
+        $("#data-weight").append("<td>" + response.weight + "</td>");
 
 
         for (i = 0; i < response.types.length; i++) {
@@ -163,3 +170,41 @@ $.ajax({
 
     })
 }
+
+// code to start the stat button // 
+////////////////////////////////////////////////////
+
+
+$(document).on("click","#Stats", function () {
+    $("#rightCol").empty();
+
+    $.ajax({
+        url: indQueryURL,
+        method: "GET"
+    }).then(function (response) {
+    for (i = 0; i < response.stats.length; i++) { 
+        console.log(response.stats[i].stat.name);
+        console.log(response.stats[i].base_stat);
+        $("#rightCol").append("<div>");
+        $("#rightCol").prepend("<br>");
+        $("#rightCol").append( "<strong>" + response.stats[i].stat.name + "</strong>" + ":");
+        $("#rightCol").append(" ");
+        $("#rightCol").append(response.stats[i].base_stat);
+        $("#rightCol").css('textTransform', 'capitalize');
+    }
+    })
+    
+});
+
+$(document).on("click", "#Caught", function (){
+    if (isCaught === false) {
+        totalCaught++;
+        console.log(totalCaught);
+    }
+
+    else {
+        totalCaught--;
+        console.log(totalCaught);
+    }
+})
+
