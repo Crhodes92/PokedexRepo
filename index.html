@@ -10,11 +10,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- this link is for mat icons -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="assets/javascript/logic.js"></script>
+  
 </head>
 
 <body>
@@ -22,6 +25,49 @@
   <nav>
     <div class="nav-wrapper">
       <a class="left brand-logo">PokeDex</a> <!-- navbar logo-->
+
+      <!-- Modal Trigger -->
+      <button data-target="chartModal" class="right btn modal-trigger">Str/Weak Chart</button>
+
+      <!-- Modal Structure -->
+      <div id="chartModal" class="modal">
+        <div class="modal-content">
+          <h4>Strengths and Weaknesses</h4>
+
+          <!-- insert chart img-->
+          <img id="chartImage" src="https://img.rankedboost.com/wp-content/uploads/2016/11/sun-and-moon-type-chart-4.jpg"
+            alt="Stength and weakness chart">
+
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
+
+      <!-- Modal Trigger -->
+      <a data-target="signInModal" class="right waves-effect waves-light btn modal-trigger">Sign-In</a>
+
+      <!-- Modal Structure -->
+      <div id="signInModal" class="modal">
+        <div class="modal-content">
+          <div>
+            <h4>Sign-In</h4>
+            <input id="txtEmail" type="email" placeholder="Email">
+
+            <input id="txtPassword" type="password" placeholder="Password">
+
+            <button id="btnLogin" class="btn btn-action">Log In</button>
+
+            <button id="btnSignUp" class="btn btn-secondary">Sign Up</button>
+
+            <button id="btnLogout" class="btn btn-action hide">Log Out</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+      
       <!-- matRef-../navbar/search bar -->
       <form>
         <div class="right input-field">
@@ -144,5 +190,12 @@
 
 
 </body>
+
+<!-- firebase app (required) -->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+<!-- firebase services -->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
+<script src="assets/javascript/logic.js"></script>
 
 </html>

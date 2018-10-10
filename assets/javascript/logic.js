@@ -221,3 +221,144 @@ $(document).on("click", "#Caught", function (){
     }
 })
 
+
+// modal
+// ____________________________________________________
+
+// https://materializecss.com/modals.html#!
+// modal initialization script
+
+$(document).ready(function () {
+    $('.modal').modal();
+    //$('.trigger-modal').modal();
+});
+
+// ____________________________________________________
+// end modal
+
+// firebase
+// ____________________________________________________
+
+// (function () {
+
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAN2geARSD-dzL6PJYPIAKAVKHoZHjgdjg",
+        authDomain: "pokedex-project.firebaseapp.com",
+        databaseURL: "https://pokedex-project.firebaseio.com",
+        projectId: "pokedex-project",
+        storageBucket: "pokedex-project.appspot.com",
+        messagingSenderId: "867995910313"
+      };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    // get elements
+    var txtEmail = $('#txtEmail');
+    var txtPassword = $('#txtPassword');
+    var btnLogin = $('#btnLogin');
+    var btnSignUp = $('#btnSignUp');
+    var btnLogout = $('#btnLogout');
+    console.log(btnLogin)
+
+    $(document).on("click", "#btnSignUp", function() {
+        console.log("yo")
+        var email = $("#txtEmail").val();
+        console.log(email)
+        var pass = $("#txtPassword").val();
+        var auth = firebase.auth();
+        // sign in
+        auth.createUserWithEmailAndPassword(email, pass);
+        // promise.catch(e => console.log(e.message));
+    })
+
+    $(document).on("click", "#btnLogin", function() {
+        //  get email and password
+        var email = $("#txtEmail").val();
+        var pass = $("#txtPassword").val();
+        var auth = firebase.auth();
+        // sign in
+        auth.signInWithEmailAndPassword(email, pass);
+    })
+
+    
+    // add login event.
+    // btnLogin.addEventListener('click', e => { 
+    //     //   get email and password
+    //     var email = txtEmail.value;
+    //     var pass = txtPassword.value;
+    //     var auth = firebase.auth();
+    //     // sign in
+    //     auth.signInWithEmailAndPassword(email, pass);
+    //     promise.catch(e => console.log(e.message));
+    // });
+
+    // sign up event
+    // btnSignUp.addEventListener('click', e => {                      
+    //     // get email and password
+    //     // TODO: check for real email
+    //     var email = txtEmail.value;
+    //     console.log(txtEmail)
+    //     var pass = txtPassword.value;
+    //     var auth = firebase.auth();
+    //     // sign in
+    //     auth.createUserWithEmailAndPassword(email, pass);
+    //     promise.catch(e => console.log(e.message));
+    // });
+
+    $(document).on("click", "#btnLogout", function() {
+
+        firebase.auth().signOut();
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          console.log(user)
+          $("#btnLogout").removeClass("hide");
+
+          firebase.database().ref('users/' + uid).set({
+            email: email,
+            yo: "yo",
+          });
+
+          database.ref().on("value", function(snapshot) {
+            console.log(snapshot.val().users[uid]);
+          }, function(errorObject) {
+        
+            // In case of error this will print the error
+            console.log("The read failed: " + errorObject.code);
+          });
+          // ...
+        } else {
+          // User is signed out.
+          console.log("logged out man")
+          $("#btnLogout").addClass("hide");
+          // ...
+        }
+      });
+    // add a realtime listener
+    // firebase.auth().onAuthStateChanged(firebaseUser => {
+    //     if(firebaseUser) {
+    //         console.log(firebaseUser);
+    //         btnLogout.classList.remove('hide');
+    //     } else {
+    //         console.log('not logged in');
+    //         btnLogout.classList.add('hide');
+    //     }
+    // });
+// }());
+
+// _________________________________________________
+// end firebase
+
+
+
+
