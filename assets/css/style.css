@@ -23,8 +23,13 @@ main {
 }
 
 #pokemonList {
-  height: 400px;
+  height: 525px;
   overflow: auto;  
+}
+
+#rightCol {
+  height: 530px;
+  overflow: auto;
 }
 
 .MiddleColButtons {

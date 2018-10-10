@@ -6,6 +6,8 @@ var indQueryURL;
 var flavorTextURL;
 var breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/";
 
+var rightCol = $("#rightCol")
+
 var isCaught = false;
 var totalCaught = 0;
 
@@ -44,7 +46,6 @@ $(document).on("click", ".pokemon-list", function () {
     $("#poke-name").css('textTransform', 'capitalize');
     console.log(searched)
     indQueryURL = queryURL + searched + "/";
-    breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/"
     populateSprite(indQueryURL);
     flavorTextURL = "https://pokeapi.co/api/v2/pokemon-species/" + searched + "/";
     populateDescription(flavorTextURL);
@@ -52,15 +53,19 @@ $(document).on("click", ".pokemon-list", function () {
 
 })
 
-$(document).on("click", "#Moves-List", function () {
+$(document).on("click", "#Moves-List", function (){
     $("#rightCol").empty();
     moveListButton(indQueryURL);
 });
 
-$(document).on("click", "#Breeding", function(breedQueryURL){
+$(document).on("click", "#Stats", function (){
     $("#rightCol").empty();
-    breedingButton(breedQueryURL);
+    trainingButton();
+});
 
+$(document).on("click", "#Breeding", function(){
+    $("#rightCol").empty();
+    breedingButton();
 })
 
 function populateSprite(indQueryURL) {
@@ -112,7 +117,7 @@ function populateButtons(buttonArr, classToAdd, areaToAdd) {
         button.attr("src", "#")
         button.attr("data-name")
         $(areaToAdd).append(button);
-        $(button).after(" ")
+        $(button).after(" ");
     }
 }
 
@@ -145,56 +150,64 @@ function moveListButton(indQueryURL) {
 }
 
 function breedingButton(){
-$.ajax({
-    url: breedQueryURL,
-    method: "GET",
-}).then(function (response) {
-    console.log(response); 
-    var breedTable = $("<table>");
-    var breedTableHead = $("<thead>").html("<strong>Breeding Information</strong>");
-    breedTable.append(breedTableHead);
-    breedTable.addClass("centered");
-    var breedRow1 = $("<tr>");
-    var genderRate = $("<td>").text(response.gender_rate);
-    var hatchCounter = $("<td>").text((response.hatch_counter)*255)
-    breedRow1.append(genderRate);
-    breedRow1.append(hatchCounter)
-    $(breedTable).append(breedRow1);
-    var breedRow2 = $("<tr>");
-    var growthRate = $("<td>").text(response.growth_rate.name);
-    //still needs egg groups
-    breedRow2.append(growthRate);
-    //need to append egg groups
-    $(breedTable).append(breedRow2);
-    $(rightCol).append(breedTable);
 
+    $.ajax({
+        url: flavorTextURL,
+        method: "GET",
+    }).then(function (response) {
+
+        console.log(response); 
+        $("#rightCol").append("<strong>" + "Egg Groups: " + "</strong>");
+
+            for (i=0; i < response.egg_groups.length; i++) {
+                console.log(response.egg_groups[i].name);
+                $("#rightCol").append("<div>");
+                $("#rightCol").prepend("<br>");
+                $("#rightCol").append(response.egg_groups[i].name);
+                $("#rightCol").append(" ");
+                $("#rightCol").css('textTransform', 'capitalize');
+                $("#rightCol").append("<br>");
+
+            }
+
+        $("#rightCol").append("<div>");
+        $("#rightCol").prepend("<br>");
+        $("#rightCol").append("<br>");
+        $("#rightCol").append("<strong>" + "Capture Rate (out of 100): " + "</strong>");
+        $("#rightCol").append(response.capture_rate);
+
+        $("#rightCol").append("<div>");
+        $("#rightCol").prepend("<br>");
+        $("#rightCol").append("<br>");
+        $("#rightCol").append("<strong>" + "Hatch Rate (by steps): " + "</strong>");
+        $("#rightCol").append(response.hatch_counter * 255);
+
+        $("#rightCol").append("<div>");
+        $("#rightCol").prepend("<br>");
+        $("#rightCol").append("<br>");
+        $("#rightCol").append("<strong>" + "Growth Rate: " + "</strong>");
+        $("#rightCol").append(response.growth_rate.name);
     })
 }
 
-// code to start the stat button // 
-////////////////////////////////////////////////////
-
-
-$(document).on("click","#Stats", function () {
-    $("#rightCol").empty();
-
-    $.ajax({
-        url: indQueryURL,
-        method: "GET"
-    }).then(function (response) {
-    for (i = 0; i < response.stats.length; i++) { 
-        console.log(response.stats[i].stat.name);
-        console.log(response.stats[i].base_stat);
-        $("#rightCol").append("<div>");
-        $("#rightCol").prepend("<br>");
-        $("#rightCol").append( "<strong>" + response.stats[i].stat.name + "</strong>" + ":");
-        $("#rightCol").append(" ");
-        $("#rightCol").append(response.stats[i].base_stat);
-        $("#rightCol").css('textTransform', 'capitalize');
+function trainingButton () {
+        $.ajax({
+            url: indQueryURL,
+            method: "GET"
+        }).then(function (response) {
+        for (i = 0; i < response.stats.length; i++) { 
+            console.log(response.stats[i].stat.name);
+            console.log(response.stats[i].base_stat);
+            $("#rightCol").append("<div>");
+            $("#rightCol").prepend("<br>");
+            $("#rightCol").append("<br>");
+            $("#rightCol").append( "<strong>" + response.stats[i].stat.name + "</strong>" + ":");
+            $("#rightCol").append(" ");
+            $("#rightCol").append(response.stats[i].base_stat);
+            $("#rightCol").css('textTransform', 'capitalize');
+        }
+        })
     }
-    })
-    
-});
 
 $(document).on("click", "#Caught", function (){
     if (isCaught === false) {
