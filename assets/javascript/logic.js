@@ -84,6 +84,7 @@ function populateSprite(indQueryURL) {
         $("#data-height").append("<td>" + response.height + "</td>");
         $("#data-weight").append("<td>" + response.weight + "</td>");
 
+        $(".pCentering").show()
 
         for (i = 0; i < response.types.length; i++) {
             console.log(response.types[i].type.name);
@@ -262,8 +263,9 @@ $(document).ready(function () {
     var btnLogout = $('#btnLogout');
     console.log(btnLogin)
 
+    //SIGN UP FUNCTION
     $(document).on("click", "#btnSignUp", function() {
-        console.log("yo")
+        console.log("Signed up!")
         var email = $("#txtEmail").val();
         console.log(email)
         var pass = $("#txtPassword").val();
@@ -273,6 +275,7 @@ $(document).ready(function () {
         // promise.catch(e => console.log(e.message));
     })
 
+    //LOG IN FUNCTION
     $(document).on("click", "#btnLogin", function() {
         //  get email and password
         var email = $("#txtEmail").val();
@@ -282,31 +285,7 @@ $(document).ready(function () {
         auth.signInWithEmailAndPassword(email, pass);
     })
 
-    
-    // add login event.
-    // btnLogin.addEventListener('click', e => { 
-    //     //   get email and password
-    //     var email = txtEmail.value;
-    //     var pass = txtPassword.value;
-    //     var auth = firebase.auth();
-    //     // sign in
-    //     auth.signInWithEmailAndPassword(email, pass);
-    //     promise.catch(e => console.log(e.message));
-    // });
-
-    // sign up event
-    // btnSignUp.addEventListener('click', e => {                      
-    //     // get email and password
-    //     // TODO: check for real email
-    //     var email = txtEmail.value;
-    //     console.log(txtEmail)
-    //     var pass = txtPassword.value;
-    //     var auth = firebase.auth();
-    //     // sign in
-    //     auth.createUserWithEmailAndPassword(email, pass);
-    //     promise.catch(e => console.log(e.message));
-    // });
-
+    //LOG OUT FUNCTION
     $(document).on("click", "#btnLogout", function() {
 
         firebase.auth().signOut();
@@ -326,39 +305,90 @@ $(document).ready(function () {
 
           firebase.database().ref('users/' + uid).set({
             email: email,
-            yo: "yo",
+            
           });
 
           database.ref().on("value", function(snapshot) {
             console.log(snapshot.val().users[uid]);
           }, function(errorObject) {
         
+        
             // In case of error this will print the error
             console.log("The read failed: " + errorObject.code);
           });
+
+          $(document).on("click", "#Caught", function (){
+
+            totalCaught++;
+            console.log(totalCaught)
+            alert("You Have Registered This Pokemon To The Pokedex");
+     
+        var pokeStatus = {
+        totalCaught: totalCaught
+        };
+     
+        database.ref().push(pokeStatus);
+     });
+     
+     database.ref().on("child_added", function (childSnapshot) {
+     
+        var indTotalCaught = childSnapshot.val().totalCaught;
+     
+            $("#total-caught").text(indTotalCaught);
+     });
+     
+     
+     $(document).on("click", "#Un-Catch", function (){
+     
+        totalCaught--;
+        alert("You Have Removed This Pokemon's Data from the PokeDex");
+     
+        var pokeStatus = {
+        totalCaught: totalCaught
+        };
+     
+        database.ref().push(pokeStatus);
+     });
+     
+     database.ref().on("child_added", function (childSnapshot) {
+     
+        var indTotalCaught = childSnapshot.val().totalCaught;
+     
+            $("#total-caught").text(indTotalCaught);
+     });
           // ...
         } else {
           // User is signed out.
           console.log("logged out man")
           $("#btnLogout").addClass("hide");
+          $("#total-caught").text(0)
           // ...
         }
       });
-    // add a realtime listener
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //     if(firebaseUser) {
-    //         console.log(firebaseUser);
-    //         btnLogout.classList.remove('hide');
-    //     } else {
-    //         console.log('not logged in');
-    //         btnLogout.classList.add('hide');
-    //     }
-    // });
-// }());
 
 // _________________________________________________
 // end firebase
+//Begin Google Custom Search JSON API Function
+$(function(){
+function googleCustomSearch(){
+    $("#searchResultsP").empty();
+    pokeSearch = $("#search").val();
+    console.log(pokeSearch);
+    searchTextURL = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAROlEJFE9NLpT9iv13Sx1su58gy_3jEGU&cx=013864497768835098294:lt9wa7vtqdc&q=" + pokeSearch
+    console.log(searchTextURL);
+    $.ajax({
+        url: searchTextURL,
+        method: "GET",
+    }).then(function (response) {
+        console.log(response);
+        for (i=0;i<response.items.length;i++) {
+            var itemUrl=response.items[i].formattedUrl
+            var itemTitle= response.items[i].title
+            $("#searchResultsP").append("<br>"+itemTitle+"<br>" + "<a target=_blank href="+itemUrl+">" +itemUrl+ "</a>"+"<br>");
+        }
 
-
-
-
+    })}
+$(document).on("click", "#searchbutton", function() {
+    $("#searchModal").modal("open")
+    googleCustomSearch();
+});})
