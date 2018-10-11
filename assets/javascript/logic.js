@@ -11,6 +11,7 @@ var rightCol = $("#rightCol")
 var isCaught = false;
 var totalCaught = 0;
 
+
 function emptyPrev() {
     $("#pic-pop").empty();
     $("#poke-descriptions").empty();
@@ -78,11 +79,14 @@ function populateSprite(indQueryURL) {
         imageCreate.attr("src", response.sprites.front_default);
         $("#pic-pop").append(imageCreate);
 
-        console.log(response.height);
-        console.log(response.weight);
+        var height = response.height*.1
+        var weight = response.weight*.1
 
-        $("#data-height").append("<td>" + response.height + "</td>");
-        $("#data-weight").append("<td>" + response.weight + "</td>");
+        console.log(height);
+        console.log(weight);
+
+        $("#data-height").append("<td>" + height.toFixed(1)+ " M" + "</td>");
+        $("#data-weight").append("<td>" + weight.toFixed(1)+ " KG" + "</td>");
 
         $(".pCentering").show()
 
@@ -210,19 +214,6 @@ function trainingButton () {
         })
     }
 
-$(document).on("click", "#Caught", function (){
-    if (isCaught === false) {
-        totalCaught++;
-        console.log(totalCaught);
-    }
-
-    else {
-        totalCaught--;
-        console.log(totalCaught);
-    }
-})
-
-
 // modal
 // ____________________________________________________
 
@@ -291,6 +282,7 @@ $(document).ready(function () {
         firebase.auth().signOut();
     });
     firebase.auth().onAuthStateChanged(function(user) {
+        var totalCaught = 0;
         if (user) {
           // User is signed in.
           var displayName = user.displayName;
@@ -300,6 +292,12 @@ $(document).ready(function () {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           var providerData = user.providerData;
+          
+          
+        //   database.ref().on("value", function(snapshot){
+        //       $("#total-caught").text(snapshot.totalCaught)
+        //   })
+          
           console.log(user)
           $("#btnLogout").removeClass("hide");
 
@@ -323,20 +321,20 @@ $(document).ready(function () {
             console.log(totalCaught)
             alert("You Have Registered This Pokemon To The Pokedex");
      
-        var pokeStatus = {
-        totalCaught: totalCaught
-        };
+            var pokeStatus = {
+            totalCaught: totalCaught
+            };
      
         database.ref().push(pokeStatus);
      });
      
-     database.ref().on("child_added", function (childSnapshot) {
+    function displayTotalCaught(){ database.ref().on("child_added", function (childSnapshot) {
      
-        var indTotalCaught = childSnapshot.val().totalCaught;
+        indTotalCaught = childSnapshot.val().totalCaught;
      
             $("#total-caught").text(indTotalCaught);
-     });
-     
+     });}
+     displayTotalCaught();
      
      $(document).on("click", "#Un-Catch", function (){
      
@@ -353,9 +351,15 @@ $(document).ready(function () {
      database.ref().on("child_added", function (childSnapshot) {
      
         var indTotalCaught = childSnapshot.val().totalCaught;
+        
      
             $("#total-caught").text(indTotalCaught);
      });
+
+    //  database.ref().on("value", function(childSnapshot){
+    //     totalCaught=childSnapshot.val().totalCaught;
+    //     $("#total-caught").text(totalCaught)
+    //  })
           // ...
         } else {
           // User is signed out.
