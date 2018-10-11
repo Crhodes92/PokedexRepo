@@ -1,4 +1,8 @@
 body {
+  font-family: 'Press Start 2P', cursive; 
+}
+
+#Chartbutton {
   font-family: 'Press Start 2P', cursive;
 }
 
@@ -77,3 +81,12 @@ _________________________________________________________*/
   height: 400px;
 }
 
+#searchResultsP {
+  color : black;
+  line-height: 1.5;
+  
+}
+
+.modal a {
+  color: crimson;
+}
