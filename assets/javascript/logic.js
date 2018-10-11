@@ -263,8 +263,9 @@ $(document).ready(function () {
     var btnLogout = $('#btnLogout');
     console.log(btnLogin)
 
+    //SIGN UP FUNCTION
     $(document).on("click", "#btnSignUp", function() {
-        console.log("yo")
+        console.log("Signed up!")
         var email = $("#txtEmail").val();
         console.log(email)
         var pass = $("#txtPassword").val();
@@ -274,6 +275,7 @@ $(document).ready(function () {
         // promise.catch(e => console.log(e.message));
     })
 
+    //LOG IN FUNCTION
     $(document).on("click", "#btnLogin", function() {
         //  get email and password
         var email = $("#txtEmail").val();
@@ -283,31 +285,7 @@ $(document).ready(function () {
         auth.signInWithEmailAndPassword(email, pass);
     })
 
-    
-    // add login event.
-    // btnLogin.addEventListener('click', e => { 
-    //     //   get email and password
-    //     var email = txtEmail.value;
-    //     var pass = txtPassword.value;
-    //     var auth = firebase.auth();
-    //     // sign in
-    //     auth.signInWithEmailAndPassword(email, pass);
-    //     promise.catch(e => console.log(e.message));
-    // });
-
-    // sign up event
-    // btnSignUp.addEventListener('click', e => {                      
-    //     // get email and password
-    //     // TODO: check for real email
-    //     var email = txtEmail.value;
-    //     console.log(txtEmail)
-    //     var pass = txtPassword.value;
-    //     var auth = firebase.auth();
-    //     // sign in
-    //     auth.createUserWithEmailAndPassword(email, pass);
-    //     promise.catch(e => console.log(e.message));
-    // });
-
+    //LOG OUT FUNCTION
     $(document).on("click", "#btnLogout", function() {
 
         firebase.auth().signOut();
@@ -327,7 +305,7 @@ $(document).ready(function () {
 
           firebase.database().ref('users/' + uid).set({
             email: email,
-            yo: "yo",
+            
           });
 
           database.ref().on("value", function(snapshot) {
@@ -342,6 +320,7 @@ $(document).ready(function () {
           $(document).on("click", "#Caught", function (){
 
             totalCaught++;
+            console.log(totalCaught)
             alert("You Have Registered This Pokemon To The Pokedex");
      
         var pokeStatus = {
@@ -382,26 +361,14 @@ $(document).ready(function () {
           // User is signed out.
           console.log("logged out man")
           $("#btnLogout").addClass("hide");
+          $("#total-caught").text(0)
           // ...
         }
       });
-    // add a realtime listener
-    // firebase.auth().onAuthStateChanged(firebaseUser => {
-    //     if(firebaseUser) {
-    //         console.log(firebaseUser);
-    //         btnLogout.classList.remove('hide');
-    //     } else {
-    //         console.log('not logged in');
-    //         btnLogout.classList.add('hide');
-    //     }
-    // });
-// }());
 
 // _________________________________________________
 // end firebase
-
-
-
+//Begin Google Custom Search JSON API Function
 $(function(){
 function googleCustomSearch(){
     $("#searchResultsP").empty();
