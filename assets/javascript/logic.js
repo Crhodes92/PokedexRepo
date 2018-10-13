@@ -9,7 +9,7 @@ var breedQueryURL = "https://pokeapi.co/api/v2/pokemon-species/"+searched+"/";
 var rightCol = $("#rightCol")
 
 var isCaught = false;
-var totalCaught = 0;
+
 
 
 function emptyPrev() {
@@ -24,6 +24,7 @@ function emptyPrev() {
     $("#data-height").empty();
 }
 
+//ajax call to generate pokemon list
 $.ajax({
     url: queryURL,
     method: "GET",
@@ -40,6 +41,7 @@ $.ajax({
     }
 })
 
+//on click function for populating specific pokemon information
 $(document).on("click", ".pokemon-list", function () {
     emptyPrev();
     searched = $(this).attr("data-name")
@@ -252,6 +254,7 @@ $(document).ready(function () {
     var btnLogin = $('#btnLogin');
     var btnSignUp = $('#btnSignUp');
     var btnLogout = $('#btnLogout');
+    totalCaught = 0;
     console.log(btnLogin)
 
     //SIGN UP FUNCTION
@@ -274,92 +277,55 @@ $(document).ready(function () {
         var auth = firebase.auth();
         // sign in
         auth.signInWithEmailAndPassword(email, pass);
+        console.log("total caught on login: " + totalCaught);
+        $("total-caught").text(totalCaught);
     })
 
     //LOG OUT FUNCTION
     $(document).on("click", "#btnLogout", function() {
-
+        console.log("total Caught on log out: " + totalCaught)
         firebase.auth().signOut();
+        totalCaught = 0
     });
     firebase.auth().onAuthStateChanged(function(user) {
-        var totalCaught = 0;
+
         if (user) {
           // User is signed in.
-          var displayName = user.displayName;
           var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
           var uid = user.uid;
-          var providerData = user.providerData;
-          
-          
-        //   database.ref().on("value", function(snapshot){
-        //       $("#total-caught").text(snapshot.totalCaught)
-        //   })
-          
+               
           console.log(user)
           $("#btnLogout").removeClass("hide");
 
-          firebase.database().ref('users/' + uid).set({
-            email: email,
+        database.ref().on("value", function(snapshot) {
             
-          });
-
-          database.ref().on("value", function(snapshot) {
             console.log(snapshot.val().users[uid]);
+            
+            console.log( "total caught from DATAbase: " + snapshot.val().users[uid].totalCaught);
+            var indTotal = snapshot.val().users[uid];
+            $("#total-caught").text(indTotal.totalCaught);
+            totalCaught = indTotal.totalCaught;
+       
           }, function(errorObject) {
-        
-        
             // In case of error this will print the error
             console.log("The read failed: " + errorObject.code);
           });
-
-          $(document).on("click", "#Caught", function (){
-
-            totalCaught++;
-            console.log(totalCaught)
-            alert("You Have Registered This Pokemon To The Pokedex");
-     
-            var pokeStatus = {
-            totalCaught: totalCaught
-            };
-     
-        database.ref().push(pokeStatus);
-     });
-     
-    function displayTotalCaught(){ database.ref().on("child_added", function (childSnapshot) {
-     
-        indTotalCaught = childSnapshot.val().totalCaught;
-     
-            $("#total-caught").text(indTotalCaught);
-     });}
-     displayTotalCaught();
-     
-     $(document).on("click", "#Un-Catch", function (){
-     
-        totalCaught--;
-        alert("You Have Removed This Pokemon's Data from the PokeDex");
-     
-        var pokeStatus = {
-        totalCaught: totalCaught
-        };
-     
-        database.ref().push(pokeStatus);
-     });
-     
-     database.ref().on("child_added", function (childSnapshot) {
-     
-        var indTotalCaught = childSnapshot.val().totalCaught;
         
-     
-            $("#total-caught").text(indTotalCaught);
-     });
+    
+          $(document).on("click", "#Caught", function (){
+            totalCaught++;
+            console.log("total Caught on BTN CLICK: " + totalCaught);
+            alert("You Have Registered This Pokemon To The Pokedex");
 
-    //  database.ref().on("value", function(childSnapshot){
-    //     totalCaught=childSnapshot.val().totalCaught;
-    //     $("#total-caught").text(totalCaught)
-    //  })
+            firebase.database().ref('users/' + uid).set({
+                email: email,
+                totalCaught: totalCaught
+            });
+        });
+      
+
+
+       
           // ...
         } else {
           // User is signed out.
