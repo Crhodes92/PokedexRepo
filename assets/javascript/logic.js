@@ -278,7 +278,7 @@ $(document).ready(function () {
         // sign in
         auth.signInWithEmailAndPassword(email, pass);
         console.log("total caught on login: " + totalCaught);
-        $("total-caught").text(totalCaught);
+        $("#total-caught").text(totalCaught);
     })
 
     //LOG OUT FUNCTION
@@ -286,6 +286,7 @@ $(document).ready(function () {
         console.log("total Caught on log out: " + totalCaught)
         firebase.auth().signOut();
         totalCaught = 0
+        window.location.reload();
     });
     firebase.auth().onAuthStateChanged(function(user) {
 
